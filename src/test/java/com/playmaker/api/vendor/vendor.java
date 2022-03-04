@@ -1,4 +1,4 @@
-package vendor;
+package com.playmaker.api.vendor;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

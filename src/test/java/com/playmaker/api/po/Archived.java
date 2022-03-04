@@ -1,4 +1,4 @@
-package PO;
+package com.playmaker.api.po;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -18,6 +18,7 @@ public class Archived {
 		RequestSpecification request = RestAssured.given();
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda").header("Content-Type", "application/json");
 		response = request.body("{\"status\":\"" + "archived" + "\"}").put("/api/integration-svc/purchase-orders/POTestAPI");
+		Assert.assertEquals(response.getStatusCode(), 200);
 		Assert.assertEquals(response.jsonPath().get("data.task"), "update");
 		response = request.get("https://demo-ai.getplaymaker.com/api/integration-svc/purchase-orders?sortBy=createdAt&sort=default&status=archived&page=1&limit=10");
 		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), poNumber);
@@ -30,6 +31,7 @@ public class Archived {
 		RequestSpecification request = RestAssured.given();
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda").header("Content-Type", "application/json");
 		response = request.body("{\"status\":\"" + "unarchived" + "\"}").put("/api/integration-svc/purchase-orders/POTestAPI");
+		Assert.assertEquals(response.getStatusCode(), 200);
 		Assert.assertEquals(response.jsonPath().get("data.task"), "update");
 		response = request.get("https://demo-ai.getplaymaker.com/api/integration-svc/purchase-orders?sortBy=createdAt&sort=default&status=unarchived&page=1&limit=10");
 		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), poNumber);

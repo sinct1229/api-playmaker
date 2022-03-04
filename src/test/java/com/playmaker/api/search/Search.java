@@ -1,4 +1,4 @@
-package Search;
+package com.playmaker.api.search;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

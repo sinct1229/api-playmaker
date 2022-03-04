@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="playmaker">
+	<test name = "run api">
+		<packages>
+			<package name="com.playmaker.api.po"></package>
+			<package name="com.playmaker.api.search"></package>
+			<package name="com.playmaker.api.vendor"></package>
+		</packages>
+	</test>
+</suite> 
