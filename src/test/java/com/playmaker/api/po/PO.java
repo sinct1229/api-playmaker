@@ -15,7 +15,7 @@ import io.restassured.specification.RequestSpecification;
 public class PO {
 	Response response;
 	String jsonString;
-	String poNumber = "POTestAPI";
+	String poNumber = "123";
 	String vendorId = "539a2980-6ca7-45a0-84b6-622c4861d2fe";
 	String locationId = "14874116142";
 	String etaAt = "1648796400000";
@@ -25,7 +25,7 @@ public class PO {
 	String dateUpdate = "1651302000000";
 	String note = "test";
 
-	@Test
+	//@Test
 	public void Test_01_Get_PO_List() {
 		RestAssured.baseURI = GlobalContants.BASE_URL;
 		RequestSpecification request = RestAssured.given();
@@ -43,10 +43,8 @@ public class PO {
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda")
 				.header("Content-Type", "application/json");
 		response = request
-				.body("{\"poNumber\": \"" + poNumber + "\", \"vendorId\": \"" + vendorId + "\", \"locationId\": \""
-						+ Long.parseLong(locationId) + "\", \"etaAt\": \"" + Long.parseLong(etaAt) + "\"}")
+				.body("{\"poNumber\": \"" + poNumber + "\", \"vendorId\": \"" + vendorId + "\", \"locationId\":"+ Long.parseLong(locationId) + ", \"etaAt\": " + Long.parseLong(etaAt) + "}")
 				.post("/api/integration-svc/purchase-orders");
-		System.out.println(response.jsonPath().get("message").toString());
 		Assert.assertEquals(response.getStatusCode(), 200);
 		
 		
@@ -56,12 +54,12 @@ public class PO {
 		List <String> listPoNumber = new ArrayList<String>();
 		List<Map<String, String>> poNumbers =  response.jsonPath().get("data.data.poNumber");
 		for(int i =0; i< poNumbers.size(); i++) {
-			listPoNumber.add(poNumbers.get(i).get("poNumber"));
+			listPoNumber.add(response.jsonPath().get("data.data[" + i + "].poNumber").toString());
 		}
 		Assert.assertTrue(listPoNumber.contains(poNumber));
 	}
 
-	@Test
+	//@Test
 	public void Test_03_Update_Vendor_PO() {
 		RestAssured.baseURI = GlobalContants.BASE_URL;
 		RequestSpecification request = RestAssured.given();
@@ -73,7 +71,7 @@ public class PO {
 		Assert.assertEquals(response.jsonPath().get("data.task"), "update");
 	}
 
-	@Test
+	//@Test
 	public void Test_04_Update_Expected_Date() {
 		RestAssured.baseURI = GlobalContants.BASE_URL;
 		RequestSpecification request = RestAssured.given();
@@ -90,13 +88,12 @@ public class PO {
 		RequestSpecification request = RestAssured.given();
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda")
 				.header("Content-Type", "application/json");
-		response = request.body("{\"locationId\": " + Long.parseLong(etaAt) + "}")
+		response = request.body("{\"locationId\": " + Long.parseLong(locationId) + "}")
 				.put("/api/integration-svc/purchase-orders/" + poNumber);
-		System.out.println(response.jsonPath().get("message").toString());
 		Assert.assertEquals(response.getStatusCode(), 200);
 	}
 
-	@Test
+	 //@Test
 	public void Test_06_Update_Note_PO() {
 		RestAssured.baseURI = GlobalContants.BASE_URL;
 		RequestSpecification request = RestAssured.given();
