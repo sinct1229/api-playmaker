@@ -4,8 +4,8 @@
 	<test name = "run api">
 		<packages>
 			<package name="com.playmaker.api.po"></package>
-			<package name="com.playmaker.api.search"></package>
-			<package name="com.playmaker.api.vendor"></package>
+			<!-- <package name="com.playmaker.api.search"></package>
+			<package name="com.playmaker.api.vendor"></package> -->
 		</packages>
 	</test>
 </suite> 

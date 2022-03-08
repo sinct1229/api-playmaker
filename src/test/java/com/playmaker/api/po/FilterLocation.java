@@ -12,7 +12,7 @@ public class FilterLocation {
 	Response response;
 	String poNumber = "POTestAPI";
 	
-	@Test
+	//@Test
 	public void Test_01_Filter_Location() {
 		RestAssured.baseURI = GlobalContants.BASE_URL;
 		RequestSpecification request = RestAssured.given();

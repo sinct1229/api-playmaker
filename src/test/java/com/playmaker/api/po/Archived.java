@@ -12,7 +12,7 @@ public class Archived {
 	Response response;
 	String poNumber = "POTestAPI";
 	
-	@Test
+	//@Test
 	public void Test_01_Archieved_PO() {
 		RestAssured.baseURI = GlobalContants.BASE_URL;
 		RequestSpecification request = RestAssured.given();
@@ -25,7 +25,7 @@ public class Archived {
 		
 	}
 	
-	@Test
+	//@Test
 	public void Test_02_Unarchieved_PO() {
 		RestAssured.baseURI = GlobalContants.BASE_URL;
 		RequestSpecification request = RestAssured.given();
