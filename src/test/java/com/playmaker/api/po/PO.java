@@ -25,7 +25,8 @@ public class PO {
 	String dateUpdate = "1651302000000";
 	String note = "test";
 
-	String variantId = "39646984568878";
+	String variantIdPartly = "39646984568878";
+	String variantIdRemove = "39717007556654";
 	String orderQuantity = "20";
 	String recieved = "15";
 	String idRecieved;
@@ -64,51 +65,73 @@ public class PO {
 		Assert.assertTrue(getListPoNumber().contains(GlobalContants.PO));
 	}
 
-	/*
-	 * @Test public void Test_03_Update_Vendor_PO() { response =
-	 * init().body("{\"vendorId\": \"" + vendorId + "\"}")
-	 * .put("/api/integration-svc/purchase-orders/" + GlobalContants.PO);
-	 * Assert.assertEquals(response.getStatusCode(), 200);
-	 * Assert.assertEquals(response.jsonPath().get("data.task"), "update"); }
-	 * 
-	 * @Test public void Test_04_Update_Expected_Date() { response =
-	 * init().body("{\"etaAt\": " + Long.parseLong(etaAt) + "}")
-	 * .put("/api/integration-svc/purchase-orders/" + GlobalContants.PO);
-	 * Assert.assertEquals(response.getStatusCode(), 200); }
-	 * 
-	 * @Test public void Test_05_Update_Location() { response =
-	 * init().body("{\"locationId\": " + Long.parseLong(locationId) + "}")
-	 * .put("/api/integration-svc/purchase-orders/" + GlobalContants.PO);
-	 * Assert.assertEquals(response.getStatusCode(), 200); }
-	 * 
-	 * @Test public void Test_06_Update_Note_PO() { response =
-	 * init().body("{\"note\": \"" + note + "\"}")
-	 * .put("/api/integration-svc/purchase-orders/" + GlobalContants.PO);
-	 * Assert.assertEquals(response.getStatusCode(), 200);
-	 * Assert.assertEquals(response.jsonPath().get("data.task"), "update"); }
-	 */
+	@Test
+	public void Test_03_Update_Vendor_PO() {
+		response = init().body("{\"vendorId\": \"" + vendorId + "\"}")
+				.put("/api/integration-svc/purchase-orders/" + GlobalContants.PO);
+		Assert.assertEquals(response.getStatusCode(), 200);
+		Assert.assertEquals(response.jsonPath().get("data.task"), "update");
+	}
+
+	@Test
+	public void Test_04_Update_Expected_Date() {
+		response = init().body("{\"etaAt\": " + Long.parseLong(etaAt) + "}")
+				.put("/api/integration-svc/purchase-orders/" + GlobalContants.PO);
+		Assert.assertEquals(response.getStatusCode(), 200);
+	}
+
+	@Test
+	public void Test_05_Update_Location() {
+		response = init().body("{\"locationId\": " + Long.parseLong(locationId) + "}")
+				.put("/api/integration-svc/purchase-orders/" + GlobalContants.PO);
+		Assert.assertEquals(response.getStatusCode(), 200);
+	}
+
+	@Test
+	public void Test_06_Update_Note_PO() {
+		response = init().body("{\"note\": \"" + note + "\"}")
+				.put("/api/integration-svc/purchase-orders/" + GlobalContants.PO);
+		Assert.assertEquals(response.getStatusCode(), 200);
+		Assert.assertEquals(response.jsonPath().get("data.task"), "update");
+	}
 
 	@Test
 	public void Test_07_Add_Product_To_PO() {
 		response = init()
-				.body("{\"poNumber\":\"" + GlobalContants.PO + "\",\"variantId\":\"" + variantId
+				.body("{\"poNumber\":\"" + GlobalContants.PO + "\",\"variantId\":\"" + variantIdPartly
 						+ "\",\"orderQuantity\":" + Integer.parseInt(orderQuantity) + "}")
 				.post("/api/integration-svc/purchase-orders/" + GlobalContants.PO + "/items");
 		idRecieved = response.jsonPath().get("data.data.id").toString();
 		Assert.assertEquals(response.getStatusCode(), 200);
 		Assert.assertEquals(response.jsonPath().get("data.task"), "create");
 		response = init().get("/api/integration-svc/purchase-orders/" + GlobalContants.PO + "/items?undefined");
-		Assert.assertEquals(response.jsonPath().get("data.data[0].product.variantId"), variantId);
+		Assert.assertEquals(response.jsonPath().get("data.data[0].product.variantId"), variantIdPartly);
 		Assert.assertEquals(response.jsonPath().get("data.data[0].orderQuantity").toString(), orderQuantity);
 	}
 
 	@Test
 	public void Test_08_Partly_Recieved() {
-		response = init().body("{\"quantity\":" + Integer.parseInt(recieved) + "}").put("/api/integration-svc/purchase-orders/"+ GlobalContants.PO + "/items/" + idRecieved + "/partly-received");
+		response = init().body("{\"quantity\":" + Integer.parseInt(recieved) + "}")
+				.put("/api/integration-svc/purchase-orders/" + GlobalContants.PO + "/items/" + idRecieved
+						+ "/partly-received");
 		Assert.assertEquals(response.getStatusCode(), 200);
-		Assert.assertEquals(response.jsonPath().get("data.partlyReceivedItem.orderQuantity").toString(),recieved);
+		Assert.assertEquals(response.jsonPath().get("data.partlyReceivedItem.orderQuantity").toString(), recieved);
 		Assert.assertEquals(response.jsonPath().get("data.partlyReceivedItem.status").toString(), "received");
 		Assert.assertEquals(response.jsonPath().get("data.backOrderItem.status").toString(), "back_order");
+	}
+
+	@Test
+	public void Test_09_Remove_From_PO() {
+		response = init()
+				.body("{\"poNumber\":\"" + GlobalContants.PO + "\",\"variantId\":\"" + variantIdRemove
+						+ "\",\"orderQuantity\":" + Integer.parseInt(orderQuantity) + "}")
+				.post("/api/integration-svc/purchase-orders/" + GlobalContants.PO + "/items");
+		idRecieved = response.jsonPath().get("data.data.id").toString();
+
+		response = init().delete("/api/integration-svc/purchase-orders/" + GlobalContants.PO + "/items/" + idRecieved);
+		Assert.assertEquals(response.getStatusCode(), 200);
+		Assert.assertEquals(response.jsonPath().get("data.task"), "deleted");
+
 	}
 
 	@AfterSuite
