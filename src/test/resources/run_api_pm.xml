@@ -4,10 +4,10 @@
 	<test name="run api">
 		<classes>
 			<class name="com.playmaker.api.po.PO"></class>
-			<class name="com.playmaker.api.po.Archived"></class>
+			<!-- <class name="com.playmaker.api.po.Archived"></class>
 			<class name="com.playmaker.api.po.FilterLocation"></class>
 			<class name="com.playmaker.api.search.Search"></class>
-			<class name="com.playmaker.api.vendor.vendor"></class>
+			<class name="com.playmaker.api.vendor.vendor"></class> -->
 		</classes>
 	</test>
 </suite> 

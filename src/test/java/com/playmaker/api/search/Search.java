@@ -22,8 +22,6 @@ public class Search {
 	String uppercaseName = "YOUR ROYAL HIGHNESS NECKLACE";
 	String lowercaseName = "your royal highness necklace";
 	
-	String poNumber = "POTestAPI";
-	
 	
 	@Test
 	public void Test_01_Search_By_Full_SKU() {
@@ -32,7 +30,7 @@ public class Search {
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda").header("Content-Type", "application/json");
 		response = request.get("/api/integration-svc/purchase-orders?sortBy=createdAt&sort=default&status=unarchived&product=" +fullSKU+"&page=1&limit=10");
 		Assert.assertEquals(response.getStatusCode(), 200);
-		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), poNumber);
+		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), GlobalContants.PO);
 	}
 	
 	@Test
@@ -42,7 +40,7 @@ public class Search {
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda").header("Content-Type", "application/json");
 		response = request.get("/api/integration-svc/purchase-orders?sortBy=createdAt&sort=default&status=unarchived&product=" +aPartSKU+"&page=1&limit=10");
 		Assert.assertEquals(response.getStatusCode(), 200);
-		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), poNumber);
+		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), GlobalContants.PO);
 	}
 	
 	@Test
@@ -52,7 +50,7 @@ public class Search {
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda").header("Content-Type", "application/json");
 		response = request.get("/api/integration-svc/purchase-orders?sortBy=createdAt&sort=default&status=unarchived&product=" +aPartSKU+"&page=1&limit=10");
 		Assert.assertEquals(response.getStatusCode(), 200);
-		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), poNumber);
+		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), GlobalContants.PO);
 	}
 	
 	@Test
@@ -62,7 +60,7 @@ public class Search {
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda").header("Content-Type", "application/json");
 		response = request.get("/api/integration-svc/purchase-orders?sortBy=createdAt&sort=default&status=unarchived&product=" +uppercaseSKU+"&page=1&limit=10");
 		Assert.assertEquals(response.getStatusCode(), 200);
-		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), poNumber);
+		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), GlobalContants.PO);
 	}
 	
 	@Test
@@ -81,7 +79,7 @@ public class Search {
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda").header("Content-Type", "application/json");
 		response = request.get("/api/integration-svc/purchase-orders?sortBy=createdAt&sort=default&status=unarchived&product=" +fullName+"&page=1&limit=10");
 		Assert.assertEquals(response.getStatusCode(), 200);
-		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), poNumber);
+		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), GlobalContants.PO);
 	}
 	
 	@Test
@@ -91,7 +89,7 @@ public class Search {
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda").header("Content-Type", "application/json");
 		response = request.get("/api/integration-svc/purchase-orders?sortBy=createdAt&sort=default&status=unarchived&product=" +aPartName+"&page=1&limit=10");
 		Assert.assertEquals(response.getStatusCode(), 200);
-		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), poNumber);
+		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), GlobalContants.PO);
 	}
 	
 	@Test
@@ -101,7 +99,7 @@ public class Search {
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda").header("Content-Type", "application/json");
 		response = request.get("/api/integration-svc/purchase-orders?sortBy=createdAt&sort=default&status=unarchived&product=" +uppercaseName+"&page=1&limit=10");
 		Assert.assertEquals(response.getStatusCode(), 200);
-		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), poNumber);
+		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), GlobalContants.PO);
 	}
 	
 	@Test
@@ -111,6 +109,6 @@ public class Search {
 		request.header("Authorization", "Bearer " + GlobalContants.TOKEN).header("x-tenant-id", "melinda").header("Content-Type", "application/json");
 		response = request.get("/api/integration-svc/purchase-orders?sortBy=createdAt&sort=default&status=unarchived&product=" +lowercaseName+"&page=1&limit=10");
 		Assert.assertEquals(response.getStatusCode(), 200);
-		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), poNumber);
+		Assert.assertEquals(response.jsonPath().get("data.data[0].poNumber"), GlobalContants.PO);
 	}
 }
